@@ -1,7 +1,8 @@
+
 {
   "name": "my-colors-new",
   "version": "0.1.0",
-  "proxy": "http://localhost:3000/api",
+  "proxy": "https://new-mycolors-api.onrender.com/api",
   "private": true,
   "engines": {
     "node": "20.4.0"
