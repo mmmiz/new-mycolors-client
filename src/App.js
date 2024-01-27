@@ -30,14 +30,15 @@ function App() {
 
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
+        
+          {/* <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Register />} />
           <Route path="/allcolors" element={<AllColors />} />
           <Route path="/allcolors/:orderNumber" element={<DetailColors />} />
           <Route path="/mycolors" element={<MyColors />} />
-          <Route path="/mylikes" element={<LikedColors />} />
+          <Route path="/mylikes" element={<LikedColors />} /> */}
         </Route>
       </Routes>
      </Router>

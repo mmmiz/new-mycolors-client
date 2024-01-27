@@ -9,7 +9,8 @@ export default function Home() {
 
   return (
     <>
-     <ColorRegister />
+     {/* <ColorRegister /> */}
+     unko
     </>
     
   )
