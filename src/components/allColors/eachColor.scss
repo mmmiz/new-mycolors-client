@@ -1,0 +1,36 @@
+.color-row {
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+
+}
+
+.color-item {
+  margin-right: 10px; 
+  // align-items: center;
+  width: 150px;
+  height: 80px;
+
+  background-color: #F3F4F6;
+  margin-bottom: 20px;
+  padding: 15px 8px 5px 8px;
+  border-radius: 5%;
+  border: 1px solid #DADBDD;
+  transition: background-color 0.3s;
+
+}
+
+.color-item-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.color-item-right {
+  // margin-left: auto;
+}
+
+.actions {
+  margin-left: auto;
+}

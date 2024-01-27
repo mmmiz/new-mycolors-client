@@ -1,0 +1,76 @@
+.color-select-container {
+  // width: 100%;
+  // height: 20vh;
+  // transition: background-color 0.3s ease-in-out;
+
+  .color-select-box {
+    width: 220px;
+    height: 80px;
+    background-color: #f3f4f6;
+    // margin: 3px;
+    // padding: 15px 8px 15px 8px;
+    border-radius: 5%;
+    border: 1px solid #dadbdd;
+   
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: black;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+    position: relative;
+    z-index: 2;
+
+    &.active {
+      background-color: white;
+      color: black;
+      z-index: 4;
+
+      .color-select-dropdown {
+        display: block;
+      }
+    }
+
+    .color-select-dropdown {
+      display: none;
+      position: absolute;
+      top: 105%;
+      left: 0;
+      width: 100%;
+      background-color: #f9fafb;
+      z-index: 4;
+      border: 1px solid #b2d3c2;
+      border-radius: 3%;
+
+      .color-select-dropdown-item {
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 30px;
+      }
+    }
+
+    .color-select-main-color {
+      // position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+
+      .color-select-main-color-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        z-index: 3;
+      }
+    }
+  }
+}

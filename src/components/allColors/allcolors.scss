@@ -1,0 +1,48 @@
+.allcolors-container {
+  // margin: 0 auto;
+  text-align: center;
+  // display: flex;
+  // flex-direction: row;
+
+  .color-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  .color-box {
+
+    flex-wrap: wrap;
+
+    // gap: 10px;
+
+    .color-detail {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .color-item {
+      display: flex;
+      flex-direction: row;
+      width: 150px;
+      height: 80px;
+      background-color: #F3F4F6;
+      margin: 10px;
+      padding: 15px 8px 0 8px;
+      border-radius: 5%;
+      border: 1px solid #DADBDD;
+      transition: background-color 0.3s;
+      
+    
+      &:hover {
+        background-color: white;
+        // color: black;
+      }
+
+      p {
+        margin: 0; // Remove default margin for <p> elements
+      }
+    }
+   }
+  }  
+}
