@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useContext } from 'react'
 
-import { BrowserRouter as Route, Routes } from 'react-router-dom';
+import { HashRouter as Route, Routes } from 'react-router-dom';
 
 import Layout from "./layout/Layout";
 import Home from './pages/home/Home';
