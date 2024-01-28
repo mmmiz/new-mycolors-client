@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useContext } from 'react'
 
-import { HashRouter as Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Layout from "./layout/Layout";
 import Home from './pages/home/Home';
@@ -20,11 +20,10 @@ function App() {
   const {currentUser} = useContext(AuthContext);
 
   return (
+    <Router>
       <Routes>
-
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-        
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
@@ -35,9 +34,7 @@ function App() {
           <Route path="/mylikes" element={<LikedColors />} />
         </Route>
       </Routes>
-      // <h1>unko</h1>
-
-
+     </Router>
   );
 }
 
