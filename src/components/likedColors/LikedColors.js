@@ -5,6 +5,9 @@ import EachColor from '../allColors/EachColor';
 import { AuthContext } from '../../context/AuthContext';
 import "../allColors/eachColor.scss"
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 export default function LikedColors() {
   const {currentUser} = useContext(AuthContext);
 
@@ -14,8 +17,8 @@ export default function LikedColors() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const res = await axios.get(`/colors/my-liked-colors/${currentUser._id}`);
-          
+          const res = await axios.get(`${apiUrl}/colors/my-liked-colors/${currentUser._id}`);
+        
           setLikedColors(res.data);
           // console.log(res.data);
         } catch (err) {
@@ -28,12 +31,17 @@ export default function LikedColors() {
     <div className='allcolors-container'>
       <h2>My Liked Colors</h2>
       <Box className='color-box'>
-        {likedColors && likedColors.map((c) => 
-         <EachColor 
-          key={c._id} 
-          color={c} 
-          setLikedColors={setLikedColors} 
-          />)}
+       {likedColors.length > 0 ? (
+          likedColors.map((c) => 
+            <EachColor 
+              key={c._id} 
+              color={c} 
+              setLikedColors={setLikedColors} 
+            />
+          )
+        ) : (
+          <p>You have not liked any colors</p>
+        )}
       </Box>
     </div>
   )

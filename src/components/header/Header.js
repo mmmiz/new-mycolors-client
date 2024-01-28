@@ -59,26 +59,26 @@ export default function Header() {
             ) : (
               <>
                 {/* Show hamburger menu only when the screen size is small */}
-              <IconButton
+              {/* <IconButton
                 edge="end"
                 color="inherit"
                 onClick={handleMenuOpen}
                 className="hamburger-menu"  
-              >
+              > */}
                 {/* <MenuIcon /> */}
-              </IconButton>
+              {/* </IconButton> */}
 
               {/* Responsive menu */}
-              <Menu
+              {/* <Menu
                 anchorEl={menuAnchor}
                 open={Boolean(menuAnchor)}
                 onClose={handleMenuClose}
-              >
-                <MenuItem onClick={handleMenuClose}><Link to={'/allcolors'}>AllColors</Link></MenuItem>
+              > */}
+                {/* <MenuItem onClick={handleMenuClose}><Link to={'/allcolors'}>AllColors</Link></MenuItem> */}
                 <MenuItem onClick={handleMenuClose}><Link to={'/register'}>Register</Link></MenuItem>
                 <MenuItem onClick={handleMenuClose}><Link to={'/login'}>Login</Link></MenuItem>
                 <MenuItem onClick={handleMenuClose}><GuestLogin /></MenuItem>
-              </Menu>
+              {/* </Menu> */}
 
               </>
             )}

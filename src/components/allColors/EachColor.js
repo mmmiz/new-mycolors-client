@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Divider } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import "./eachColor.scss"
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
   const { currentUser } = useContext(AuthContext);
@@ -18,7 +21,7 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
     try {
       const alert = window.confirm('Are you sure you want to delete this color?');
       if (alert) {
-        await axios.delete(`colors/${color._id}`);
+        await axios.delete(`${apiUrl}/colors/${color._id}`);
         setAllColors((prevColors) => prevColors.filter((prevColor) => prevColor.orderNumber !== color.orderNumber));
       }
     } catch (error) {
@@ -34,7 +37,7 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
 
   const likeHandler = () => {
     try {
-      axios.put(`/colors/${color._id}/like`, { userId: currentUser._id} ); // Who liked it? 
+      axios.put(`${apiUrl}/colors/${color._id}/like`, { userId: currentUser._id} ); // Who liked it? 
     } catch (err) {}
     if (context !== "allLikedColors") {
       setIsLiked(!isLiked);
@@ -52,51 +55,62 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
   //   return filterLikedColors(prevLikedColors, color._id);
   // });
 
-  console.log(color);
+  // console.log(color.mainColor.color);
 
   const colorAttributes = ['Main', 'About', 'Products', 'News', 'Contact'];
 
   return (
     <div key={color._id} className="color-row">
-     {colorAttributes.map((att) => (
+      {colorAttributes.map((att) => (
         <div key={`${color._id}-${att}`} className='color-item'>
-         <div className='color-item-top'>
+          <div className='color-item-top'>
             <div
               style={{
-                backgroundColor: `${color[`${att.toLowerCase()}Color`]}`,
+                backgroundColor: att === "Main" ? color.mainColor.color : color[`${att.toLowerCase()}Color`],
                 width: '36px',
                 height: '36px',
                 marginRight: '10px',
                 borderRadius: '50%',
-                
               }}
             />   
-            <b style={{ alignItems: "center" }}>{att === 'Main' ? 'Main' : `${att}`}</b>
-        </div>
-
+            <b>{att === 'Main' ? 'Main' : `${att}`}</b>
+          </div>
           <p>{att === 'Main' ? `${color.mainColor.color} ` : `${color[`${att.toLowerCase()}Color`]} `}</p>
         </div>
       ))}
-      
+
       <div className='color-item-right'>
-        <Button onClick={() => navigate(`/allcolors/${color.orderNumber}`, { state: color })}>
+        <Button variant="contained" size='small' onClick={() => navigate(`/allcolors/${color.orderNumber}`, { state: color })}>
           Detail
         </Button>
+        
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px"}}>
+          {color.userId === currentUser._id ? (
+            <Button variant="outlined" size="small" color="error" onClick={() => deleteHandle(color.orderNumber)}>Delete</Button>
+            
+            ) : (
+            
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: '5px' }}>
+              <div onClick={likeHandler}
+                 style={{
+                  color: isLiked ? 'red' : 'grey', 
+                  cursor: 'pointer',
+                }}>
+                {isLiked ? '❤︎' : '❤︎'}
+              </div>
+              <span className="postLikeCounter text-base">{like}</span>
+            </div>
 
-        {color.userId === currentUser._id ? (
-          <button onClick={() => deleteHandle(color.orderNumber)}>Delete</button>
-        ) : (
-          <div>
-            <button onClick={likeHandler}>
-              {isLiked ? 'Liked' : 'Like'}
-            </button>
-            <span className="postLikeCounter text-base">{like}</span>
-          </div>
-        )}
-
+          )}
+        </div>
+      
       </div>
+
+      <Divider className='divider' sx={{ display: { xs: 'block', md: 'none' } }} />
+
     </div>
   );
+  
 };
 
 export default EachColor;

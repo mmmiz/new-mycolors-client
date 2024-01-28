@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import "./update.scss"
 
 export default function Update({userInfo, setUser, setOpenUpdate}) {
   const [userData, setUserData] = useState({
@@ -7,7 +8,7 @@ export default function Update({userInfo, setUser, setOpenUpdate}) {
     email: '',
   });
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
 
   // Existing User INFO input 
@@ -21,7 +22,7 @@ export default function Update({userInfo, setUser, setOpenUpdate}) {
 
   const handleChange = (e) => {
     const {name, value} = e.target;
-    console.log(name, value)
+    // console.log(name, value)
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -49,22 +50,20 @@ export default function Update({userInfo, setUser, setOpenUpdate}) {
     }
   };    
 
-
   return (
-    <div>
+    <div className="updateContainer">
       <label>
-        Username:
+        <b>Username:</b>
         <input type="text" name="username" value={userData.username} onChange={handleChange} />
       </label>
-      <br />
 
       <label>
-        Email:
+        <b>Email:</b>
         <input type="email" name="email" value={userData.email} onChange={handleChange} />
       </label>
-      <br />
 
       <button onClick={handleUpdate}>Update Profile</button>
     </div>
-  )
+  );
 }
+

@@ -6,12 +6,15 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 export default function ColorRegister() {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [palette, setPalette] = useState({
-    userId: currentUser._id,
+    userId: currentUser ? currentUser._id : '' ,
     mainColor: {
       url: '',
       color: '',
@@ -42,7 +45,7 @@ export default function ColorRegister() {
   const handleRegisterColors = async () => {
     // console.log('Request Body:', palette);
     try {
-      const response = await axios.post('/colors', palette);
+      const response = await axios.post(`${apiUrl}/colors`, palette);
       console.log('Colors registered successfully:', response.data);
 
       // const orderNumber = response.data.orderNumber

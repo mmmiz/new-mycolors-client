@@ -5,6 +5,9 @@ import axios from 'axios';
 import { Box } from '@mui/material';
 import EachColor from './EachColor';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 export default function AllColors() {
   const [allColors, setAllColors] = useState([]);
 
@@ -13,7 +16,7 @@ export default function AllColors() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/colors");
+        const res = await axios.get(`${apiUrl}/colors`);
         setAllColors(res.data);
         // console.log(res.data);
       } catch (err) {

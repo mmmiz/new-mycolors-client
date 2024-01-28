@@ -5,6 +5,9 @@ import EachColor from '../allColors/EachColor';
 import { Box } from '@mui/material';
 import "../allColors/allcolors.scss"
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 export default function MyColors() {
   const [myColors, setMyColors] = useState([]);
   const {currentUser} = useContext(AuthContext);
@@ -12,7 +15,7 @@ export default function MyColors() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`/colors/mycolors/${currentUser._id}`);
+        const res = await axios.get(`${apiUrl}/colors/mycolors/${currentUser._id}`);
         setMyColors(res.data);
         // console.log(res.data);
       } catch (err) {
@@ -28,9 +31,13 @@ export default function MyColors() {
     <div className='allcolors-container'>
       <h2>My Colors</h2>
       <Box className='color-box'>
-        {myColors.map((c) => (
-          <EachColor key={c._id} color={c} setAllColors={setMyColors} />
-         ))}
+        {myColors.length > 0 ? (
+          myColors.map((c) => (
+            <EachColor key={c._id} color={c} setAllColors={setMyColors} />
+          ))
+        ) : (
+          <p>no colors registered</p>
+        )}
       </Box>
     </div>
   )

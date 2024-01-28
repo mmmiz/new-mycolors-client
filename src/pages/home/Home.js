@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext'
 
 export default function Home() {
   const {currentUser} = useContext(AuthContext);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <>

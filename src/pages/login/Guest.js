@@ -4,6 +4,9 @@ import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { Button } from '@mui/material';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
+
 export default function GuestLogin() {
   const navigate = useNavigate();
   const {dispatch} = useContext(AuthContext);
@@ -12,7 +15,7 @@ export default function GuestLogin() {
     try {
       dispatch({ type: 'LOGIN_START' });
 
-      const response = await axios.post("/auth/login", {
+      const response = await axios.post(`${apiUrl}/auth/login`, {
         email: 'guest_login@gmail.com',
         password: '12345678',
       });

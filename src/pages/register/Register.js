@@ -1,7 +1,10 @@
 import axios from "axios";
-import './register.scss';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "@mui/material";
+
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -28,7 +31,7 @@ export default function Register() {
     }
 
     try {
-      const response = await axios.post('/auth/register', formData);
+      const response = await axios.post(`${apiUrl}/auth/register`, formData);
       setErrorMessage('');
       console.log(response.data);
       navigate('/login'); 
@@ -52,8 +55,10 @@ export default function Register() {
   return (
     <div className="login">
       <div className="loginWrapper">
+
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleSubmit}>
+            <h2>REGISTER</h2>
             {formFields.map((field) => (
               <input
                 key={field.name}
@@ -66,10 +71,11 @@ export default function Register() {
                 autoComplete=""
               />
             ))}
-            <button className="loginButton" type="submit">
+            <Button className="loginButton" type="submit">
               Sign Up
-            </button>
-            <button className="loginRegisterButton">Log into Account</button>
+            </Button>
+            <hr />
+            <Button className="loginRegisterButton">Login</Button>
           </form>
           {errorMessage && <p>{errorMessage}</p>}
         </div>

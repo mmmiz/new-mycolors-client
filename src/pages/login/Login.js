@@ -2,15 +2,17 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import './login.scss'
+import { Button } from "@mui/material";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const { isFetching, dispatch, currentUser } = useContext(AuthContext);
+  const { isFetching, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,9 +26,9 @@ export default function Login() {
       const response = await axios.post(`${apiUrl}/auth/login`, formData);
 
       if (response.data.user) {
-        console.log('Token:', response.data.token);
+        // console.log('Token:', response.data.token);
         dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.user });
-        console.log(response.data.user);
+        // console.log(response.data.user);
         navigate("/");
       } else {
         dispatch({ type: 'LOGIN_FAILURE' });
@@ -40,16 +42,14 @@ export default function Login() {
 
   return (
     <div className="login">
-      <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">Your App Name</h3>
-          <span className="loginDesc">
-            Connect with friends and the world around you.
-          </span>
-        </div>
+      
+
+      {/* <div className="loginWrapper"> */}
 
         <div className="loginRight">
+          
           <form className="loginBox" onSubmit={handleLogin}>
+            <h2 style={{marginBottom: "40px"}}>LOGIN</h2>
             <input
               placeholder="Email"
               type="email"
@@ -70,24 +70,26 @@ export default function Login() {
               autoComplete="password"
 
             />
-            <button className="loginButton" type="submit" disabled={isFetching}>
+            <Button className="loginButton" type="submit" disabled={isFetching}>
               {isFetching ? (
                 <p>Logging </p>
               ) : (
                 "Log In"
               )}
-            </button>
+            </Button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
+            <Button className="loginRegisterButton">
               {isFetching ? (
                  <p>Logging </p>
               ) : (
                 "Create a New Account"
               )}
-            </button>
+            </Button>
           </form>
         </div>
-      </div>
+      {/* </div> */}
+
+      
     </div>
   );
 }
