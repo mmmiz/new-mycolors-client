@@ -20,7 +20,7 @@ export default function Login() {
     try {
       dispatch({ type: 'LOGIN_START' });
 
-      const response = await axios.post('/auth/login', formData);
+      const response = await axios.post('https://new-mycolors-api.onrender.com/api/auth/login', formData);
 
       if (response.data.user) {
         console.log('Token:', response.data.token);
