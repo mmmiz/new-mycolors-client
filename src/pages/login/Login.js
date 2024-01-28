@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const apiUrl = "https://new-mycolors-api.onrender.com/api" || 'http://localhost:3000/api';
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
