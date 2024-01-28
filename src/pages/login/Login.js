@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
+const apiUrl = "https://new-mycolors-api.onrender.com/api" || 'http://localhost:3000/api';
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,7 +21,7 @@ export default function Login() {
     try {
       dispatch({ type: 'LOGIN_START' });
 
-      const response = await axios.post('https://new-mycolors-api.onrender.com/api/auth/login', formData);
+      const response = await axios.post(apiUrl + '/auth/login', formData);
 
       if (response.data.user) {
         console.log('Token:', response.data.token);
