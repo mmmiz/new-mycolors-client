@@ -21,7 +21,7 @@ export default function Login() {
     try {
       dispatch({ type: 'LOGIN_START' });
 
-      const response = await axios.post(apiUrl + '/auth/login', formData);
+      const response = await axios.post(`${apiUrl}/auth/login`, formData);
 
       if (response.data.user) {
         console.log('Token:', response.data.token);
