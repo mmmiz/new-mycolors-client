@@ -1,37 +1,95 @@
 
-.container {
-  // padding: 20px 20px;
-  // width: 100%;
-  // height: 100vh; // Adjust as needed
+.content {
+  // background-color: aqua;
   display: flex;
   justify-content: center;
   align-items: center;
-  // color: $textColor; // Uncomment when text color logic is implemented
-
-  // Content styling
-  .content {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-
-    // Image styling
-    .image {
-      overflow: hidden;
-      width: 400px;
-    }
-
-    .text {
-      text-align: center;
-      h1 {
-        // Add styles for h1
-      }
-
-      // Add styles for other text elements as needed
-
-      // Read More Button styling
-      button {
-        margin-top: 10px; // Adjust as needed
-      }
-    }
+  flex-direction: row;
+  gap: 30px;
+  height: 75vh; 
+  @media (max-width: 600px) {
+    // width: 90%;
+    flex-direction: column;
+    padding-bottom: 30px;
   }
 }
+
+.content-box {
+  // background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 30px;
+  @media (max-width: 667px) {
+    width: 50%;
+    flex-direction: column;
+    padding-bottom: 30px;
+  }
+}
+
+.text { 
+  width: 80%;
+}
+
+.image {
+  width: 380px;
+  height: 280px;
+  @media (max-width: 600px) {
+    margin-top: 30px;
+    width: 80%;
+    height: 80%;
+  }
+}
+
+// PRODUCTS
+.products-content {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80vh; 
+
+  @media (max-width: 786px) {
+    height: auto; 
+    padding-bottom: 30px;
+  }
+}
+
+.products-top {
+  margin-top: 30px;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+.products-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  width: 90%;
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
+}
+
+.product-box {
+  background-color:#F5F5F5;
+  border-radius: 2%;
+  border: 1px solid #DBD7D2;
+  padding: 90px 100px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  @media (max-width: 798px) {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
+
+

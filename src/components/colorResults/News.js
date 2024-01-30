@@ -1,5 +1,6 @@
-import { Box, Button, Stack } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
+import "./news.scss"
 // import { isBackgroundColorDark } from '../../utill/textColor';
 
 export default function News({ backgroundColor }) {
@@ -13,68 +14,26 @@ export default function News({ backgroundColor }) {
   }));
 
   return (
-    <>
-      <Box
-        sx={{
-          backgroundColor: backgroundColor,
-          // color: textColor,
-          padding: '20px 20px',
-          width: '100%',
-          height: {xs: '120vh', sm: '89vh'},
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <Stack textAlign='center' marginTop='-60px' flexDirection='column'>
+    <div className='news-content' style={{backgroundColor: backgroundColor}}>
+
+      <div className='news-box'>
+
+        <div className='news-top'>
           <h2>News</h2>
           <p>We cannot solve problems with the kind of thinking we employed when we came up with them.</p>
-        </Stack>
+        </div>
 
       {data.map((item, index) => (
-        <Box
-          key={index}
-          textAlign="center"
-          sx={{
-            color: 'grey',
-            width: '80%',
-            height: 'auto',
-            // borderBottom: `1px ${textColor} solid`,
-            paddingBottom: '10px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '0 auto',
-            flexDirection: 'row', 
-            marginTop: '20px',
-          }}
-        >
+        <div key={index} className='news-bottom'>
           <p>{item.date}</p>
-          <Box
-            textAlign="center"
-            sx={{
-              backgroundColor: 'grey',
-              color: 'white',
-              width: '80px',
-              height: '30px',
-              borderRadius: '20px',
-              marginLeft: '10px', 
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {item.product}
-          </Box>
-          <p style={{ marginLeft: '10px' }}>{item.description}</p>
-        </Box>
+          <p>{item.product}</p>
+          <p>{item.description}</p>
+        </div>
       ))}
-
+      </div>
       <Button sx={{backgroundColor: backgroundColor}}>
         read more
       </Button>
-      </Box>
-    </>
+    </div>
   );
 }

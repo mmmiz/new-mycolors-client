@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react'
+import {useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import { Button } from '@mui/material';
@@ -21,9 +21,9 @@ export default function GuestLogin() {
       });
       
       if (response.data.user) {
-        console.log('Token:', response.data.token);
+        // console.log('Token:', response.data.token);
         dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.user });
-        console.log(response.data.user);
+        // console.log(response.data.user);
         navigate("/");
       } else {
         dispatch({ type: 'LOGIN_FAILURE' });
@@ -34,19 +34,20 @@ export default function GuestLogin() {
   };
 
   return (
-      <Button
-        size='small'
-        sx={{
-          color: "#1F456E",
-          borderColor: '#1F456E',
-          '&:hover': {
-            backgroundColor: '#1F456E',
-            textDecoration: 'none',
-            color: 'white',
-          },
-        }}
+      <button
+        className="btn"
+        // size='small'
+        // sx={{
+        //   color: "#1F456E",
+        //   borderColor: '#1F456E',
+        //   '&:hover': {
+        //     backgroundColor: '#1F456E',
+        //     textDecoration: 'none',
+        //     color: 'white',
+        //   },
+        // }}
         onClick={handleGuestLogin}>
           <b>Guest Login</b>
-      </Button>
+      </button>
   )
 }

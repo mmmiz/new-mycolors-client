@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Box, Button, Divider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Button, Divider } from '@mui/material';
 import { AuthContext } from '../../context/AuthContext';
 import axios from 'axios';
 import "./eachColor.scss"
@@ -8,12 +8,13 @@ import "./eachColor.scss"
 const apiUrl = process.env.REACT_APP_API_URL;
 
 
-const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
+const EachColor = ({ color, setAllColors, setLikedColors, context, details }) => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [like, setLike] = useState(color?.likes?.length || 0 );
   const [isLiked, setIsLiked] = useState(false);
+
 
   
   // DELETE a COLOR
@@ -22,7 +23,11 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
       const alert = window.confirm('Are you sure you want to delete this color?');
       if (alert) {
         await axios.delete(`${apiUrl}/colors/${color._id}`);
-        setAllColors((prevColors) => prevColors.filter((prevColor) => prevColor.orderNumber !== color.orderNumber));
+        if (context === "deleteDetail") {
+          navigate("/allcolors");
+        } else {
+          setAllColors((prevColors) => prevColors.filter((prevColor) => prevColor.orderNumber !== color.orderNumber));
+        }
       }
     } catch (error) {
       // console.error('Error deleting color:', error);
@@ -40,7 +45,7 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
       axios.put(`${apiUrl}/colors/${color._id}/like`, { userId: currentUser._id} ); // Who liked it? 
     } catch (err) {}
     if (context !== "allLikedColors") {
-      setIsLiked(!isLiked);
+      setIsLiked(!isLiked); // for myliked page
       setLikedColors((prevLikedColors) => prevLikedColors.filter((likedColor) => likedColor._id !== color._id));
     } else {
       setLike(isLiked ? like - 1 : like + 1);
@@ -62,7 +67,8 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
   return (
     <div key={color._id} className="color-row">
       {colorAttributes.map((att) => (
-        <div key={`${color._id}-${att}`} className='color-item'>
+        
+        <div className='color-item' key={`${color._id}-${att}`}>
           <div className='color-item-top'>
             <div
               style={{
@@ -80,9 +86,16 @@ const EachColor = ({ color, setAllColors, setLikedColors, context }) => {
       ))}
 
       <div className='color-item-right'>
-        <Button variant="contained" size='small' onClick={() => navigate(`/allcolors/${color.orderNumber}`, { state: color })}>
-          Detail
+        {!details && (
+          <Button
+            variant="contained" 
+            size='small' 
+            onClick={() => navigate(`/allcolors/${color.orderNumber}`, { state: color })
+          }>
+          Details
         </Button>
+        )}
+
         
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px"}}>
           {color.userId === currentUser._id ? (

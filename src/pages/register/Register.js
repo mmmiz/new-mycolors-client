@@ -71,11 +71,11 @@ export default function Register() {
                 autoComplete=""
               />
             ))}
-            <Button className="loginButton" type="submit">
+            <button className="loginButton" type="submit">
               Sign Up
-            </Button>
-            <hr />
-            <Button className="loginRegisterButton">Login</Button>
+            </button>
+        
+            <button className="loginRegisterButton">Login</button>
           </form>
           {errorMessage && <p>{errorMessage}</p>}
         </div>

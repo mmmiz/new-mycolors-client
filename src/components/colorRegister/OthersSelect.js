@@ -1,7 +1,6 @@
-import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { SketchPicker } from 'react-color';
-import './othersSelect.scss';
+import '../colorRegister/colorRegister.scss';
 
 export default function OthersSelect({
   label,
@@ -53,34 +52,32 @@ export default function OthersSelect({
 
 
   return (
-    <>
-      <div className="color-select-container">
+      <div className="background-select-container">
        
-       <Box
+       <div
           onClick={() => setShowSelect(!showSelect)}
-          className={`color-select-box ${showSelect ? 'active' : ''}`}
-         >
-          <div className="color-select-main-color">
-            <Box
-              className="color-select-main-color-box"
+          className={`color-select-box ${showSelect ? 'active' : ''}`} >
+        
+          <div className="background-color">
+            <div
+              className="background-color-box"
               style={{ backgroundColor: color }}
-              />
+            />
               <b>{label}</b>
           </div>
-       </Box>
-       {showSelect && (
-          <div className="color-select-dropdown-item">
-            <SketchPicker 
-              color={color} 
-              onChange={handleColorChange}
-              onClick={() => setShowSelect(false)}
-              />
-          </div>
-       )}
 
+        {showSelect && (
+        <div className="sketch-picker" style={{width: '60px'}}>
+          <SketchPicker 
+            color={color} 
+            onChange={handleColorChange}
+            onClick={() => setShowSelect(false)}
+            />
+        </div>
+        )}
 
+       </div>
 
       </div>
-    </>
   );
 }

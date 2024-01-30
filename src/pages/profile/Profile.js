@@ -12,9 +12,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function Profile() {
   const {currentUser} = useContext(AuthContext);
   // console.log(currentUser);
-
   const [user, setUser] = useState("");
-
+  const [openUpdate, setOpenUpdate] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,19 +21,23 @@ export default function Profile() {
         const res = await axios.get(`${apiUrl}/users?userId=${currentUser._id}`);
         // const res = await axios.get('/users', {userId: currentUser._id});
         setUser(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
       }
     };
     fetchData();
   }, [currentUser._id]);
 
-  useEffect(() => {
-    console.log('User state updated:', user);
-  }, [user]);
 
+  if (!currentUser) {
+    // If currentUser is null, you may want to handle this case accordingly.
+    return (
+      <div>
+        <p>User not logged in.</p>
+      </div>
+    );
+  }
 
-  const [openUpdate, setOpenUpdate] = useState(false);
 
 
   return (

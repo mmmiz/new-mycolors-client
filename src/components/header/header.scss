@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  justify-content: center;
+  justify-content: space-between;
   overflow: hidden;
 
   .left {
@@ -17,13 +17,14 @@
       color: white;
 
       &:hover {
-        text-decoration: underline;
+        background-color: white;
+        color: #B2D3C2;
       }
     }
   }
 
   .right {
-    flex: 4;
+    // flex: 4;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -43,6 +44,10 @@
       background-color: white;
       color: #B2D3C2;
       border: white;
+      font-size: 15px;
+      padding: 7px;
+      border-radius: 5px;
+
 
       &:hover {
         background-color: #B2D3C2;
@@ -51,13 +56,10 @@
     }
   }
 
-  // @media (max-width: 600px) {
-  //   .right {
-  //     // display: none;
-  //   }
-
-  //   .hamburger-menu {
-  //     display: block;
-  //   }
-  // }
 }
+
+  @media (max-width: 600px) {
+    .right-sub {
+      display: block;
+    }
+  }

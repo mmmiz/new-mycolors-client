@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import "./update.scss"
+import { Button, ButtonGroup } from '@mui/material';
 
 export default function Update({userInfo, setUser, setOpenUpdate}) {
   const [userData, setUserData] = useState({
@@ -62,7 +63,14 @@ export default function Update({userInfo, setUser, setOpenUpdate}) {
         <input type="email" name="email" value={userData.email} onChange={handleChange} />
       </label>
 
-      <button onClick={handleUpdate}>Update Profile</button>
+      <Button 
+        onClick={handleUpdate}
+        size='small'
+        disabled={userData.email === 'guest_login@gmail.com'}
+      >
+        Update
+      </Button>
+      {userData.username === "guest" && <b style={{color: "red", marginTop: '10px'}}>Cant change info as you logged in as guest</b>}
     </div>
   );
 }

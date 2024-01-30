@@ -3,16 +3,15 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import './login.scss'
-import { Button } from "@mui/material";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const { isFetching, dispatch } = useContext(AuthContext);
+  const { isFetching, dispatch, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // console.log(currentUser);
+  console.log(currentUser);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -70,21 +69,21 @@ export default function Login() {
               autoComplete="password"
 
             />
-            <Button className="loginButton" type="submit" disabled={isFetching}>
+            <button size="small" className="loginButton" type="submit" disabled={isFetching}>
               {isFetching ? (
                 <p>Logging </p>
               ) : (
                 "Log In"
               )}
-            </Button>
+            </button>
             <span className="loginForgot">Forgot Password?</span>
-            <Button className="loginRegisterButton">
+            <button className="loginRegisterButton">
               {isFetching ? (
                  <p>Logging </p>
               ) : (
                 "Create a New Account"
               )}
-            </Button>
+            </button>
           </form>
         </div>
       {/* </div> */}

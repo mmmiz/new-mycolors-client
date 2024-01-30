@@ -1,10 +1,7 @@
-import React from 'react';
-import { Box, Stack } from '@mui/material';
-// import { isBackgroundColorDark } from '../../utill/textColor';
+import React from 'react'
+import "./aboutUs.scss"
 
 export default function Products({ backgroundColor }) {
-  // const textColor = isBackgroundColorDark(backgroundColor) ? 'white' : 'black';
-
   const products = [
     { name: 'Product 1', imageSrc: '/backgroundColor/product.jpg' },
     { name: 'Product 2', imageSrc: '/backgroundColor/product.jpg' },
@@ -12,57 +9,26 @@ export default function Products({ backgroundColor }) {
   ];
 
   return (
-    <div>
-      <Box
-        sx={{
-          backgroundColor: backgroundColor,
-          // color: textColor,
-          padding: '20px 20px',
-          width: '100%',
-          height: { xs: 'auto', sm: '100vh' },
-          textAlign: 'center',
-        }}
-      >
-        <Stack direction="column" alignItems="center" marginBottom={5}>
-          <h2>Products</h2>
-          <b>Learn more about our products</b>
-        </Stack>
 
-        <Stack
-          container
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={{ xs: 1, sm: 3 }}
-        >
-          {products.map((product, index) => (
-            <Stack
-              item
-              key={index}
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                margin: '0 auto', 
-              }}
-            >
-              <Box
-                sx={{
-                  backgroundColor: '#F2F3F4',
-                  color: 'black',
-                  width: '70%',
-                  height: '55vh',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  borderRadius: '10px',
-                }}>
-                <img src={product.imageSrc} alt={product.name} width="60%" />
-                <h2>{product.name}</h2>
-              </Box>
-            </Stack>
-          ))}
-        </Stack>
-      </Box>
-    </div>
+    <div className="products-content" style={{backgroundColor: backgroundColor}}>
+
+      <div className="products-top" style={{ textAlign: 'center' }}>
+        <h1>Our products</h1>
+        <p>The greatest glory in living lies not in never falling, <br/>but in rising every time we fall.</p>
+          {/* <p>The way to get started is to quit talking and begin doing.</p>
+          <p>Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma  <br/>
+            – which is living with the results of other people's thinking.</p> */}
+      </div>
+
+      <div className='products-bottom'>
+        {products.map((p, index) => (
+          <div key={index} className='product-box'>
+            <h4>{p.name}</h4>
+            <img src='../../' />
+          </div>
+        ))}
+      </div>
+ 
+  </div>
   );
 };

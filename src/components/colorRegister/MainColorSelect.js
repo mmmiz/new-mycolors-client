@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/material';
-import './mainColorSelect.scss';
+import React, { useState } from 'react'
+import '../colorRegister/colorRegister.scss';
 
-export default function MainColorSelect({ onMainImageChange }) {
+
+export default function MainColorSelect({onMainImageChange}) {
   const [showSelect, setShowSelect] = useState(false);
   const [color, setColor] = useState('white');
 
-  const handleColorSelect = (selectedColor) => {
-    // console.log('Selected Color:', selectedColor);
-    onMainImageChange({ url: selectedColor.url, color: selectedColor.color});
-    // console.log('Palette:', { url: selectedColor.url, color: selectedColor.color});
-    setColor(selectedColor.color); 
+    const handleColorSelect = (selectedColor) => {
+    onMainImageChange({ url: selectedColor.url, color: selectedColor.color });
+    setColor(selectedColor.color);
   };
-  
+
   const predefinedImages = [
     { url: 'black.jpg', color: 'black' },
     { url: 'blue.jpg', color: 'blue' },
@@ -26,35 +24,36 @@ export default function MainColorSelect({ onMainImageChange }) {
   ];
 
   return (
-    <div className="background-pic-select-container">
-      <Box
-        onClick={() => setShowSelect(!showSelect)}
-        className={`background-pic-select-box ${showSelect ? 'active' : ''}`}
-      >
+    <div className="background-select-container">
 
-        {/* DROPDOWN */}
+      <div onClick={() => setShowSelect(!showSelect)} className={`color-select-box ${showSelect ? 'active' : ''}`}>
+  
+        <div className="background-color">
+          <div
+            className="background-color-box"
+            style={{ backgroundColor: color }}
+          />
+          <b>Main</b>
+        </div>
+
+        {/* dropdown */}
         {showSelect && (
-          <div className="background-pic-dropdown">
+          <div className='dropdown'>
             {predefinedImages.map((color, index) => (
-              <div
-                key={index}
-                onClick={() => handleColorSelect(color)}
-                className="background-pic-dropdown-item"
-              >
+              <div key={index} 
+                className='dropdown-item'
+                onClick={() => handleColorSelect(color)}>
                 {color.color}
               </div>
             ))}
           </div>
         )}
 
-        <div className="background-pic-main-color">
-          <Box
-            className="background-pic-main-color-box"
-            style={{ backgroundColor: color }}
-          />
-          <b>Main</b>
-        </div>
-      </Box>
+      </div>
     </div>
-  );
+  )
 }
+
+
+
+
