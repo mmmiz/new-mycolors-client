@@ -1,17 +1,29 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import './login.scss'
+import { Alert, AlertTitle } from "@mui/material";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const { isFetching, dispatch, currentUser } = useContext(AuthContext);
+  const { isFetching, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(currentUser);
+  const location = useLocation();
+  const loginRequired = new URLSearchParams(location.search).get('loginRequired');
+  const logoutMessage = new URLSearchParams(location.search).get('logoutSuccess');
+  const registerMessage = new URLSearchParams(location.search).get('registerSuccess');
+
+  
+  const messages = [
+    { type: 'success', text: 'Login Required', condition: loginRequired === 'true' },
+    { type: 'success', text: 'Logout Success!', condition: logoutMessage === 'true' },
+    { type: 'fail', text: 'Register Success, please login!', condition: registerMessage === 'true' },
+  ];
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,27 +33,30 @@ export default function Login() {
     e.preventDefault();
     try {
       dispatch({ type: 'LOGIN_START' });
-
       const response = await axios.post(`${apiUrl}/auth/login`, formData);
 
       if (response.data.user) {
-        // console.log('Token:', response.data.token);
         dispatch({ type: 'LOGIN_SUCCESS', payload: response.data.user });
-        // console.log(response.data.user);
-        navigate("/");
+        navigate("/?loginSuccess=true");
       } else {
         dispatch({ type: 'LOGIN_FAILURE' });
-        // console.error('Invalid response format:', response);
       }
     } catch (error) {
       dispatch({ type: 'LOGIN_FAILURE' });
-      // console.error('Error logging in:', error.message);
     }
   };
 
+
   return (
     <div className="login">
-      
+      {messages.map((msg, index) => ( 
+        msg.condition && (
+          <Alert key={index}>
+            <AlertTitle>{msg.type}</AlertTitle>
+            <strong>{msg.text}</strong>
+          </Alert>
+        )
+      ))}
 
       {/* <div className="loginWrapper"> */}
 

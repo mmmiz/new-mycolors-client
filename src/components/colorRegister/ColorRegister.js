@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Alert, AlertTitle, Button } from '@mui/material';
 import MainColorSelect from './MainColorSelect';
 import OthersSelect from './OthersSelect';
 import MainPage from "../colorResults/MainPage"
@@ -19,6 +19,11 @@ export default function ColorRegister() {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const location = useLocation();
+  const loginMessage = new URLSearchParams(location.search).get('loginSuccess');
+  const guestLoginMessage = new URLSearchParams(location.search).get('guestLoginSuccess');
+
+  
   const [palette, setPalette] = useState({
     userId: currentUser ? currentUser._id : '',
     mainColor: {
@@ -50,7 +55,7 @@ export default function ColorRegister() {
     try {
       const response = await axios.post(`${apiUrl}/colors`, palette);
       console.log('Colors registered successfully:', response.data);
-      navigate('/allcolors');
+      navigate('/allcolors?registerSuccess=true');
     } catch (error) {
       console.error('Error registering colors:', error);
     }
@@ -67,8 +72,23 @@ export default function ColorRegister() {
     );
   };
 
+  const messages = [
+    { type: 'success', text: 'Login Success!', condition: loginMessage === 'true' },
+    { type: 'success', text: 'Logged in as a guest', condition: guestLoginMessage === 'true' },
+    // { type: 'success', text: 'Color Registration Success! Please check all colors', condition: isColorRegistered },
+  ];
+
   return (
     <div className='container'>
+      
+      {messages.map((msg, index) => ( 
+        msg.condition && (
+          <Alert key={index}>
+            <AlertTitle>{msg.type}</AlertTitle>
+            <strong>{msg.text}</strong>
+          </Alert>
+        )
+      ))}
 
         <div className='top'>
           <div className='top-item'>
@@ -83,7 +103,7 @@ export default function ColorRegister() {
             className={isRegisterButtonDisabled() ? 'disabled-button' : 'enabled-button'}
             style={{ margin: "30px", backgroundColor: "#FF91AF", color: "white" }}
             disabled={isRegisterButtonDisabled()}
-            onClick={currentUser ? handleRegisterColors : () => navigate("/login")} 
+            onClick={currentUser ? handleRegisterColors : () => navigate("/login?loginRequired=true")} 
             >
             Register
           </Button>

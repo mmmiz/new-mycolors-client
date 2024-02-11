@@ -34,7 +34,7 @@ export default function Register() {
       const response = await axios.post(`${apiUrl}/auth/register`, formData);
       setErrorMessage('');
       console.log(response.data);
-      navigate('/login'); 
+      navigate('/login?registerSuccess=true'); 
     } catch (error) {
       if (error.response && error.response.status === 400) {
         setErrorMessage('User with this email address already exists.');
