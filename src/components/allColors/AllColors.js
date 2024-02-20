@@ -25,19 +25,21 @@ export default function AllColors() {
         const res = await axios.get(`${apiUrl}/colors?page=${currentPage}`);
         setAllColors(res.data);
         setTotalPages(res.data.totalPages);
+        // console.log(res.data)
       } catch (err) {
+
       }
     };
     fetchData();
   }, [currentPage]);
-
+  
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   }
 
   
   return (
-    <div className='allcolors-container'>
+    <div className='all-colors'>
 
       {msg.condition && (
         <Alert>
@@ -49,7 +51,7 @@ export default function AllColors() {
       <h2>All COLORS</h2>
 
       <Box className='color-box'>
-        {allColors.colors.map((c) => (
+        {allColors.colors && allColors.colors.map((c) => (
           <EachColor key={c._id} color={c} 
             setAllColors={setAllColors}
             context="allLikedColors" />

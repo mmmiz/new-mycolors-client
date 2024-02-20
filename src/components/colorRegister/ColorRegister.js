@@ -12,6 +12,7 @@ import News from "../colorResults/News"
 import Contact from "../colorResults/Contacts"
 import Footer from '../colorResults/Footer';
 import "./colorRegister.scss"
+import ColorCheck from './ColorCheck';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -34,8 +35,9 @@ export default function ColorRegister() {
     productsColor: '',
     newsColor: '#F7F7F7', 
     contactColor: '#DBD7D2',
-    colorCategory: '', 
+    colorCategory: [], 
   });
+
 
   const handleMainColorChange = (main) => {
     setPalette((prev) => ({
@@ -50,6 +52,16 @@ export default function ColorRegister() {
       [`${label.toLowerCase()}Color`]: color,
     }));
   };
+
+  const handleColorSelection = (colors) => {
+    setPalette((prev) => ({
+      ...prev,
+      // colorCategory: colors.join(', ') 
+      colorCategory: colors.length > 0 ? colors : []
+    }));
+    // console.log('Selected colors:', colors);
+  };
+
 
   const handleRegisterColors = async () => {
     try {
@@ -98,7 +110,9 @@ export default function ColorRegister() {
             <OthersSelect label="News" onNewsColorChange={(color) => handleOthersColorChange(color, 'News')} />
             <OthersSelect label="Contact" onContactColorChange={(color) => handleOthersColorChange(color, 'Contact')} />
           </div>
-          
+
+          <ColorCheck onColorSelection={handleColorSelection}/>
+           
           <Button
             className={isRegisterButtonDisabled() ? 'disabled-button' : 'enabled-button'}
             style={{ margin: "30px", backgroundColor: "#FF91AF", color: "white" }}

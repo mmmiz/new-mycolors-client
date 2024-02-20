@@ -1,11 +1,25 @@
-.color-row {
+.each-color-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  // width: 95%;
+  flex-direction: column;
+  margin-bottom: 15px;
 }
 
-.color-item {
+.each-color-container-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+
+.each-color-box {
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  flex-direction: column;
+
   margin-right: 10px; 
   width: 150px;
   height: 80px;
@@ -17,21 +31,12 @@
   transition: background-color 0.3s;
 }
 
-.color-item-top {
+.color-item-top{
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
 }
-
-.color-item-right {
-  gap: 10px;
-}
-
-.actions {
-  // margin-left: auto;
-}
-
-// COLOR DETAIL
 
 
 @media (max-width: 600px) {

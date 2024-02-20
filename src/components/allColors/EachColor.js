@@ -15,6 +15,7 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
   const [like, setLike] = useState(color?.likes?.length || 0 );
   const [isLiked, setIsLiked] = useState(false);
 
+  // console.log(color.colorCategory);
 
   
   // DELETE a COLOR
@@ -26,11 +27,16 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
         if (context === "deleteDetail") {
           navigate("/allcolors");
         } else {
-          setAllColors((prevColors) => prevColors.filter((prevColor) => prevColor.orderNumber !== color.orderNumber));
+          setAllColors((prevColors) => {
+            if (!prevColors || !Array.isArray(prevColors)) {
+              return [];
+            }
+            return setAllColors((prevColors) => prevColors.filter((prevColor) => prevColor.orderNumber !== color.orderNumber));
+
+          })
         }
       }
     } catch (error) {
-      // console.error('Error deleting color:', error);
     }
   }
 
@@ -65,13 +71,16 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
   const colorAttributes = ['Main', 'About', 'Products', 'News', 'Contact'];
 
   return (
-    <div key={color._id} className="color-row">
+    <div key={color._id} className="each-color-container">
+
+
+     <div className='each-color-container-top'>
       {colorAttributes.map((att) => (
-        
-        <div className='color-item' key={`${color._id}-${att}`}>
+        <div className='each-color-box' key={`${color._id}-${att}`}>  
+
           <div className='color-item-top'>
             <div
-              style={{
+              style={{  // CIRCLE BALL
                 backgroundColor: att === "Main" ? color.mainColor.color : color[`${att.toLowerCase()}Color`],
                 width: '36px',
                 height: '36px',
@@ -79,11 +88,14 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
                 borderRadius: '50%',
               }}
             />   
+
             <b>{att === 'Main' ? 'Main' : `${att}`}</b>
           </div>
+
           <p>{att === 'Main' ? `${color.mainColor.color} ` : `${color[`${att.toLowerCase()}Color`]} `}</p>
         </div>
-      ))}
+      ))} 
+
 
       <div className='color-item-right'>
         {!details && (
@@ -96,7 +108,7 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
         </Button>
         )}
 
-        
+
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "10px"}}>
           {color.userId === currentUser._id ? (
             <Button variant="outlined" size="small" color="error" onClick={() => deleteHandle(color.orderNumber)}>Delete</Button>
@@ -113,11 +125,29 @@ const EachColor = ({ color, setAllColors, setLikedColors, context, details }) =>
               </div>
               <span className="postLikeCounter text-base">{like}</span>
             </div>
-
           )}
-        </div>
-      
+
+        </div>  
+
       </div>
+    </div>  
+
+    <div>
+      {color.colorCategory.length > 0 && color.colorCategory.map((c) => (
+        <Button 
+          sx={{marginRight: "10px", borderRadius: '50%'}}
+          variant="outlined" 
+          size="small"
+          key={c} 
+          onClick={() => navigate(`/allcolors/category?color=${c}`)
+        }>
+        {c}
+        </Button>
+      ))}
+    </div>
+
+
+
 
       <Divider className='divider' sx={{ display: { xs: 'block', md: 'none' } }} />
 

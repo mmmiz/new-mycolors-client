@@ -14,6 +14,7 @@ import LikedColors from './components/likedColors/LikedColors'
 
 import { AuthContext } from './context/AuthContext'
 import DetailColors from './components/detailColors/DetailColors';
+import CategoryColors from './components/allColors/CategoryColors';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/allcolors" element={<AllColors />} />
           <Route path="/allcolors/:orderNumber" element={<DetailColors />} />
+          <Route path="/allcolors/category" element={<CategoryColors />} />
           <Route path="/mycolors" element={<MyColors />} />
           <Route path="/mylikes" element={<LikedColors />} />
         </Route>
