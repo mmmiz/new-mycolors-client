@@ -20,6 +20,7 @@ export default function Header() {
       await axios.post(`${apiUrl}/auth/logout`);
       dispatch({ type: 'LOGOUT' });
       navigate('/login?logoutSuccess=true'); 
+      setLoggingOut(false);
     } catch (error) {
       console.error('Error logging out:', error.message);
     }
