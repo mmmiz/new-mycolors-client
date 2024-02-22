@@ -47,7 +47,7 @@ export default function Header() {
                 </button>
               </Link>
               <button className='btn' onClick={handleLogout}>
-                {loggingOut ? <p>Logging Out</p> : <p>Logout</p>}
+                {loggingOut ? <b>...</b> : <b>Logout</b>}
               </button>
             {/* </div> */}
           </div>
