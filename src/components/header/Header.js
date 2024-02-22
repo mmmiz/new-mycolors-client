@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import "./header.scss"
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from "../../context/AuthContext";
@@ -11,9 +11,12 @@ const apiUrl = process.env.REACT_APP_API_URL;
 export default function Header() {
   const navigate = useNavigate();
   const { currentUser, dispatch } = useContext(AuthContext);
+  const [loggingOut, setLoggingOut] = useState(false);
+
 
   const handleLogout = async () => {
     try {
+      setLoggingOut(true);
       await axios.post(`${apiUrl}/auth/logout`);
       dispatch({ type: 'LOGOUT' });
       navigate('/login?logoutSuccess=true'); 
@@ -58,7 +61,7 @@ export default function Header() {
 
               <Link to={'/Login'}>
                 <button className='btn'>
-                  <b>Login</b>
+                  {loggingOut ? <p>Logging Out</p> : <p>Logout</p>}
                 </button>
               </Link>
               <GuestLogin />
